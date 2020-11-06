@@ -1,13 +1,13 @@
-package com.example;
+package com.monstertome;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;
 
-public class ExamplePluginTest
+public class MonsterTomePluginTest
 {
 	public static void main(String[] args) throws Exception
 	{
-		ExternalPluginManager.loadBuiltin(ExamplePlugin.class);
+		ExternalPluginManager.loadBuiltin(MonsterTomePlugin.class);
 		RuneLite.main(args);
 	}
 }
