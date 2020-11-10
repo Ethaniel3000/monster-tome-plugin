@@ -31,7 +31,15 @@ public class MonsterTomeOverlay extends Overlay {
     @Override
     public Dimension render(Graphics2D graphics) {
         panelComponent.getChildren().clear();
-        String overlayTitle = "MONSTER";
+        NPC enemy = (NPC)monsterTomePlugin.getLastOpponent();
+        String overlayTitle = "MONSTER: " + enemy.getName();
+        String status;
+        if(monsterList.contains(enemy.getId())){
+            status = "COLLECTED";
+        }
+        else {
+            status = getStatus();
+        }
 
         panelComponent.getChildren().add(TitleComponent.builder()
             .text(overlayTitle)
@@ -41,7 +49,7 @@ public class MonsterTomeOverlay extends Overlay {
                 graphics.getFontMetrics().stringWidth(overlayTitle) + 80, 0));
         panelComponent.getChildren().add(LineComponent.builder()
                 .left("Status:")
-                .right(getStatus())
+                .right(status)
                 .build());
 
         return panelComponent.render(graphics);
@@ -54,17 +62,16 @@ public class MonsterTomeOverlay extends Overlay {
         if(actor.getName() != null && actor.getHealthScale() > 0){
             if(actor instanceof NPC){
                 enemy = (NPC)actor;
-                String name = enemy.getName();
                 int id = enemy.getId();
                 if(monsterList.contains(id)){
-                    status = "Collected";
-                }
-                else if(enemy.getHealthRatio() < 50){
-                    status = "Collecting";
+                    status = "COLLECTED";
                 }
                 else if(enemy.getHealthRatio() < 10){
                     status = "Collected";
                     monsterList.add(id);
+                }
+                else if(enemy.getHealthRatio() < 50){
+                    status = "Collecting";
                 }
             }
         }
