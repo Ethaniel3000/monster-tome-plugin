@@ -11,26 +11,35 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.ui.overlay.OverlayManager;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Monster tome for logging and collecting monster entries"
+		name = "Monster Tome",
+		description = "Monster tome for logging and collecting monster entries"
+
 )
 public class MonsterTomePlugin extends Plugin
 {
 	@Inject
 	private Client client;
 
+	@Inject
+	private OverlayManager overlayManager;
+
+	@Inject
+	private MonsterTomeOverlay overlay;
+
 	@Override
 	protected void startUp() throws Exception
 	{
-		log.info("Example started!");
+		overlayManager.add(overlay);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		log.info("Example stopped!");
+		overlayManager.remove(overlay);
 	}
 
 	@Subscribe
