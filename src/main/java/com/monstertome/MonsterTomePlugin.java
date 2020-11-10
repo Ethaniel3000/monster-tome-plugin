@@ -21,9 +21,6 @@ public class MonsterTomePlugin extends Plugin
 	@Inject
 	private Client client;
 
-	@Inject
-	private MonsterTomeConfig config;
-
 	@Override
 	protected void startUp() throws Exception
 	{
@@ -41,13 +38,7 @@ public class MonsterTomePlugin extends Plugin
 	{
 		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
 		{
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Example says " + config.greeting(), null);
+			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Example says ", null);
 		}
-	}
-
-	@Provides
-	MonsterTomeConfig provideConfig(ConfigManager configManager)
-	{
-		return configManager.getConfig(MonsterTomeConfig.class);
 	}
 }
