@@ -20,6 +20,7 @@ public class MonsterTomeOverlay extends Overlay {
     private final MonsterTomePlugin monsterTomePlugin;
     private final PanelComponent panelComponent = new PanelComponent();
     private ArrayList<Integer> monsterList = new ArrayList<Integer>();
+    private ArrayList<Monster> mList = new ArrayList<Monster>();
 
     @Inject
     private MonsterTomeOverlay(Client client, MonsterTomePlugin monsterTomePlugin){
@@ -32,10 +33,18 @@ public class MonsterTomeOverlay extends Overlay {
     public Dimension render(Graphics2D graphics) {
         panelComponent.getChildren().clear();
         NPC enemy = (NPC)monsterTomePlugin.getLastOpponent();
+        Monster mon = new Monster(enemy);
         String enemyName = enemy.getName();
         if(enemyName == null){ enemyName = "NONE"; }
         String overlayTitle = "MONSTER: " + enemyName;
         String status;
+        for(Monster m: mList){
+            if(m.getId()==enemy.getId()){
+                mon.setStatus("COLLECTED");
+                m.setStatus("COLLECTED");
+                break;
+            }
+        }
         if(monsterList.contains(enemy.getId())){
             status = "COLLECTED";
         }
@@ -69,7 +78,7 @@ public class MonsterTomeOverlay extends Overlay {
                     status = "COLLECTED";
                 }
                 else if(enemy.getHealthRatio() < 10){
-                    status = "Collected";
+                    status = "COLLECTED";
                     monsterList.add(id);
                 }
                 else if(enemy.getHealthRatio() < 50){
