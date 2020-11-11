@@ -98,28 +98,4 @@ public class MonsterTomePlugin extends Plugin
 			}
 		}
 	}
-
-	@Subscribe
-	public void onMenuEntryAdded(MenuEntryAdded menuEntryAdded)
-	{
-		if (menuEntryAdded.getType() != MenuAction.NPC_SECOND_OPTION.getId()
-				|| !menuEntryAdded.getOption().equals("Attack"))
-		{
-			return;
-		}
-
-		int npcIndex = menuEntryAdded.getIdentifier();
-		NPC npc = client.getCachedNPCs()[npcIndex];
-		if (npc == null)
-		{
-			return;
-		}
-
-		if (npc.getInteracting() == client.getLocalPlayer() || lastOpponent == npc)
-		{
-			MenuEntry[] menuEntries = client.getMenuEntries();
-			menuEntries[menuEntries.length - 1].setTarget("*" + menuEntryAdded.getTarget());
-			client.setMenuEntries(menuEntries);
-		}
-	}
 }

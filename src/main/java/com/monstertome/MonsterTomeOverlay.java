@@ -32,7 +32,9 @@ public class MonsterTomeOverlay extends Overlay {
     public Dimension render(Graphics2D graphics) {
         panelComponent.getChildren().clear();
         NPC enemy = (NPC)monsterTomePlugin.getLastOpponent();
-        String overlayTitle = "MONSTER: " + enemy.getName();
+        String enemyName = enemy.getName();
+        if(enemyName == null){ enemyName = "NONE"; }
+        String overlayTitle = "MONSTER: " + enemyName;
         String status;
         if(monsterList.contains(enemy.getId())){
             status = "COLLECTED";
